@@ -84,10 +84,7 @@ int main(int argc, const char **argv) {
 
 		const std::array<const char*, 3> extension_names = {
 			VK_KHR_SURFACE_EXTENSION_NAME, VK_MVK_MACOS_SURFACE_EXTENSION_NAME,
-			//"VK_EXT_metal_objects", 
-			//"VK_EXT_layer_settings",
-			"VK_KHR_portability_enumeration",
-			//"VK_KHR_portability_subset"
+			"VK_KHR_portability_enumeration" // macOS require
 		};
 
 		VkInstanceCreateInfo create_info = {};
@@ -98,6 +95,7 @@ int main(int argc, const char **argv) {
 		create_info.enabledLayerCount = validation_layers.size();
 		create_info.ppEnabledLayerNames = validation_layers.data();
 		#ifdef __APPLE__
+		// https://github.com/KhronosGroup/MoltenVK/blob/main/Docs/MoltenVK_Runtime_UserGuide.md#interacting-with-the-moltenvk-runtime
 		create_info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 		#endif //__APPLE__
 
